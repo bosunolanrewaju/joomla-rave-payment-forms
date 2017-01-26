@@ -1,16 +1,14 @@
 'use strict';
 
-  var form = jQuery( '.flw-simple-pay-now-form' ),
-      redirectUrl, flw_rave_options;
+  var form, redirectUrl;
 
-  if ( form ) {
-    form.on( 'submit', function(evt) {
-      evt.preventDefault();
+  jQuery( '.flw-simple-pay-now-form' ).on( 'submit', function(evt) {
+    evt.preventDefault();
+    form = $("#" + this.id);
 
-      var config = buildConfigObj( this );
-      getpaidSetup( config );
-    } );
-  }
+    var config = buildConfigObj( this );
+    getpaidSetup( config );
+  } );
 
   /**
    * Builds config object to be sent to GetPaid
@@ -25,36 +23,35 @@
 
     return {
       amount: amount,
-      country: flw_rave_options.country,
-      currency: flw_rave_options.currency,
-      custom_description: flw_rave_options.desc,
-      custom_logo: flw_rave_options.logo,
-      custom_title: flw_rave_options.title,
+      country: formData.country,
+      currency: formData.currency,
+      custom_description: formData.desc,
+      custom_logo: formData.logo,
+      custom_title: formData.title,
       customer_email: email,
-      PBFPubKey: flw_rave_options.pbkey,
+      PBFPubKey: formData.pbkey,
       txref: txref,
       onclose: function() {
         redirectTo( redirectUrl );
       },
       callback: function(res) {
-        sendPaymentRequestResponse( res );
+        sendPaymentRequestResponse( res, formData.module );
       }
     };
   };
 
   /**
-   * Sends payment response from GetPaid to the endpoint that saves the record
-   * Through saveResponse function in mod_rave_payment_forms.php
+   * Calls saveResponse function and processes the callback
    *
    * @param object Response object from GetPaid
+   * @param string Name of the module called
    *
    * @return void
    */
-  var sendPaymentRequestResponse = function(res) {
-    saveResponse(res.tx, function(response, error) {
+  var sendPaymentRequestResponse = function(res, module) {
+    saveResponse(res.tx, module, function(response, error) {
       if(error) return console.log('error: ', error);
       redirectUrl   = response.redirect_url;
-      console.log('res', response);
 
       if (!redirectUrl) {
         var responseMsg  = ( res.tx.paymentType === 'account' ) ? res.tx.acctvalrespmsg  : res.tx.vbvrespmessage;
@@ -72,6 +69,36 @@
   };
 
   /**
+   * Sends payment response from GetPaid to the endpoint that saves the record
+   *
+   * @param object Response object from GetPaid passed through sendPaymentRequestResponse
+   * @param string Name of the module called passed through sendPaymentRequestResponse
+   * @param function Callback to be called when request returns
+   *
+   * @return void
+   */
+  var saveResponse = function(data, module, cb) {
+    var request = {
+      'data'   :  JSON.stringify(data),
+      'format' : 'json',
+      'module' : 'rave_payment_forms',
+      'option' : 'com_ajax',
+      'title'  : module,
+    };
+
+    jQuery.ajax({
+      data   : request,
+      type   : 'POST',
+      success: function (response) {
+        cb(response.data, null);
+      },
+      error: function(err) {
+        cb(null, err);
+      }
+    });
+  };
+
+  /**
    * Redirect to set url
    *
    * @param string url - The link to redirect to
@@ -82,4 +109,5 @@
     if (url) {
       // location.href = url;
     }
+    redirectUrl = null;
   };

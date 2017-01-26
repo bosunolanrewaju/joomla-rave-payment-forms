@@ -42,11 +42,8 @@ class modRavePaymentFormsHelper
 
   public static function getParams($key)
   {
-    $title = JFactory::getApplication()->input->get('title', null, 'raw');
-    $module = JModuleHelper::getModule('rave_payment_forms', $title);
-    $ravePaymentParams = new JRegistry;
-    $ravePaymentParams->loadString($module->params);
-    return $ravePaymentParams->get($key);
+    $rave_settings_params = JComponentHelper::getParams( 'com_ravepayments' );
+    return $rave_settings_params->get($key, '');
   }
 
 }

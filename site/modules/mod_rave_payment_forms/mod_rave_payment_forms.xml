@@ -26,12 +26,13 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic" label="MOD_BASIC" description="MOD_BASIC_SETTINGS">
-				<field type="text" label="MOD_PUBLIC_KEY" name="public_key" description="MOD_YOUR_RAVE_INTEGRATION_PUBLIC" default="" class="" size="32" filter="" required="true" />
-				<field type="text" label="MOD_MODAL_TITLE" name="modal_title" description="MOD_PAY_MODAL_TITLE__DEFAULT__FL" default="" class="" size="32" filter="" />
-				<field type="text" label="MOD_MODAL_DESCRIPTION" name="modal_desc" description="MOD_PAY_MODAL_DESCRIPTION__DEFAU" default="" class="" size="32" filter="" />
-				<field type="file" label="MOD_MODAL_LOGO" name="modal_logo" description="MOD_MODAL_LOGO_DESCRIPTION" default="" accept="image/*" />
-				<field type="text" label="MOD_SUCCESS_URL" name="success_url" description="MOD_THE_URL_OF_THE_PAGE_TO_REDIR" default="" class="" size="32" filter="" />
-				<field type="text" label="MOD_FAILURE_URL" name="failed_url" description="MOD_THE_URL_OF_THE_PAGE_TO_REDIR_DESCRIPTION" default="" class="" size="32" filter="" />
+				<field type="number" label="MOD_PAYMENT_AMOUNT" name="amount" description="MOD_AMOUNT_TO_CHARGE_CUSTOMER" default="" class="" size="32" filter="" />
+
+				<field name="use_user_email" type="radio" class="btn-group btn-group-yesno" default="0" label="MOD_USE_USER_EMAIL" description="MOD_USE_USER_EMAIL_DESCRIPTION">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+
 				<field type="text" label="MOD_BUTTON_TEXT" name="button_text" description="MOD_THE_TEXT_ON_THE_PAY_BUTTON__" default="" class="" size="32" filter="" />
 			</fieldset>
 

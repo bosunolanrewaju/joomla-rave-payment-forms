@@ -16,52 +16,46 @@ if ($loadJquery == '1') {
 }
 
 // Include assets
-$doc->addStyleSheet(JURI::root()."modules/mod_rave_payment_forms/assets/css/style.css");
 $doc->addScript("//flw-pms-dev.eu-west-1.elasticbeanstalk.com/flwv3-pug/getpaidx/api/flwpbf-inline.js");
 $doc->addScript(JURI::root()."modules/mod_rave_payment_forms/assets/js/flw.js", 'text/javascript', true);
 
-$country  = $params->get('country', "");
-$currency = $params->get('currency', "");
-$desc     = $params->get('modal_desc', "");
-$format   = $params->get('format', 'json');
-$logo     = $params->get('modal_logo', "");
-$module_title = $module->title;
-$public_key   = $params->get('public_key', false);
-$title        = $params->get('modal_title', "");
+$rave_settings_params = JComponentHelper::getParams( 'com_ravepayments' );
 
-$js = <<<JS
-  flw_rave_options = {
-    country   : '{$country}',
-    currency  : '{$currency}',
-    desc      : '{$desc}',
-    logo      : '{$logo}',
-    pbkey     : '{$public_key}',
-    title     : '{$title}',
-  };
+if ( $rave_settings_params->get('disable_style') === "0" ) {
+  $doc->addStyleSheet(JURI::root()."modules/mod_rave_payment_forms/assets/css/style.css");
+}
 
-  function saveResponse(data, cb) {
-    // var objData = Object.assign({}, data, {module_title: $module_title})
-    var request = {
-            'data'   :  JSON.stringify(data),
-            'format' : '{$format}',
-            'module' : 'rave_payment_forms',
-            'option' : 'com_ajax',
-            'title'  : '{$module_title}',
-          };
+$args = array(
+  'amount'   => $params->get('amount', ''),
+  'country'  => $rave_settings_params->get('country', ""),
+  'currency' => $rave_settings_params->get('currency', ""),
+  'desc'   => $rave_settings_params->get('modal_desc', ""),
+  'module' => $module->title,
+  'pbkey'  => $rave_settings_params->get('public_key', false),
+  'title'  => $rave_settings_params->get('modal_title', ""),
+);
 
-    jQuery.ajax({
-      data   : request,
-      type   : 'POST',
-      success: function (response) {
-        cb(response.data, null);
-      },
-      error: function(err) {
-        cb(null, err);
-      }
-    });
+$email = '';
+$logo  = $rave_settings_params->get('modal_logo', "");
+
+$use_user_email = $params->get('use_user_email');
+if ($use_user_email === '1') {
+  $user = JFactory::getUser();
+  if (!$user->guest) {
+    $email = $user->email;
   }
-JS;
+}
 
-$doc->addScriptDeclaration($js);
+if ( ! empty($logo) ) {
+  $logo = JURI::root() . $logo;
+}
+
+$args['email'] = $email;
+$args['logo']  = $logo;
+
+$data_attr = '';
+foreach ($args as $att_key => $att_value) {
+  $data_attr .= ' data-' . $att_key . '="' . $att_value . '"';
+}
 
 require JModuleHelper::getLayoutPath('mod_rave_payment_forms', $params->get('layout', 'default'));
