@@ -54,7 +54,7 @@
       redirectUrl   = response.redirect_url;
 
       if (!redirectUrl) {
-        var responseMsg  = ( res.tx.paymentType === 'account' ) ? res.tx.acctvalrespmsg  : res.tx.vbvrespmessage;
+        var responseMsg = ( res.tx.paymentType === 'account' ) ? res.tx.acctvalrespmsg  : res.tx.vbvrespmessage;
         jQuery( form )
           .find( '#notice' )
           .text( responseMsg )
@@ -107,7 +107,7 @@
    */
   var redirectTo = function( url ) {
     if (url) {
-      // location.href = url;
+      location.href = url;
     }
     redirectUrl = null;
   };
