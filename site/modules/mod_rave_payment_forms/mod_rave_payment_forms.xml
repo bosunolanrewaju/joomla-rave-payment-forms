@@ -12,7 +12,7 @@
 	<authorUrl>https://twitter.com/bosunolanrewaju</authorUrl>
 	<copyright>Copyright © 2017 - All rights reserved.</copyright>
 	<license>GNU General Public License v2.0</license>
-	<version>0.0.2</version>
+	<version>0.1.0</version>
 	<description>MOD_RAVE_PAYMENT_FORMS_DESCRIPTION</description>
 	<files>
 		<filename module="mod_rave_payment_forms">mod_rave_payment_forms.php</filename>

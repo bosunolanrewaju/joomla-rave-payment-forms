@@ -4,7 +4,7 @@
  - **Tags:** rave, payment form, payment gateway, bank account, credit card, debit card, nigeria, kenya, international, mastercard, visa, joomla
  - **Requires at least:** Joomla 2.5
  - **Tested on:** Joomla 3 (3.6.5)
- - **Stable tag:** 0.0.1
+ - **Stable tag:** 0.1.0
  - **License:** [GNU GPLv2 ](https://github.com/bosunolanrewaju/rave-payment-forms/blob/master/LICENSE)
 
 Take donations and payments for services on your Joomla site using Rave Checkout.

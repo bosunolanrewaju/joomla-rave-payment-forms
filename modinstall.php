@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    CVS: 0.0.1
+ * @version    CVS: 0.1.0
  * @package    Com_Ravepayments
  * @author     Olatunbosun Olanrewaju <bosunolanrewaju@gmail.com>
  * @copyright  Olatunbosun Olanrewaju
