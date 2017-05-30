@@ -18,7 +18,7 @@ Accept Credit card, Debit card and Bank account payment directly on your Joomla 
 
 #### Take donations and payments easily and directly on your site
 
-Rave is available in:__Nigeria__, __Ghana__, __Kenya__. Signup for an account [here](https://flutterwave.com)
+Rave is available in:__Nigeria__, __Ghana__, __Kenya__. Signup for an account [here](https://ravepay.co)
 
 
 ## Installation
@@ -43,6 +43,8 @@ On the __Rave Payments Configuration__ Page:
 
 
 * __Public Key__ - (Required) Your Rave Checkout public key which can be retrieved from "Rave Checkout" page on your Rave account dashboard.
+* __Secret Key__ - (Required) Your Rave Checkout secret key which can be retrieved from "Rave Checkout" page on your Rave account dashboard.
+* __Secret Key__ - (Optional) Choose to use the live account when you are ready to go live (Must be set to Yes for Production). Default: NO.
 * __Modal Title__ - (Optional) Customize the title of the Pay Modal. Default is RAVE CHECKOUT.
 * __Modal Description__ - (Optional) Customize the description on the Pay Modal. Default is RAVE CHECKOUT MODAL.
 * __Modal Logo__ - (Optional) Customize the logo on the Pay Modal. Upload logo to media and select. Default is Rave logo.
@@ -73,7 +75,7 @@ Click on __Extensions__ > __Modules__ from the top menu. From the list of create
   - Other options (on the right):
     * __Position__ Set the position (place) to display the form on your site. This is dependent on the current template position. But, the module provides an extra position named __Rave In-Article__ and can be selected from the list. This lets you display the form on an article page (more below). Also, you can set (enter) a custom position.
     * __Status__ The status of the form. Set to __Published__ to have the form available for display.
-* __Menu Assignment__ tab lets you the page(s) that will have access to the form. "No pages" means the form won't be available. Recommended is "On all pages". You can use "Only on the pages selected" to restrict the form to certain pages (pages need to exist).
+* __Menu Assignment__ tab lets you select the page(s) that will have access to the form. "No pages" means the form won't be available. Recommended is "On all pages". You can use "Only on the pages selected" to restrict the form to certain pages (pages need to exist).
 * Click __Save & Close__ to create (or save) the form.
 
 
@@ -89,7 +91,7 @@ Click on __Content__ > __Articles__ > __Add New Article__ and give it a title an
 
 This will output all the content set to display at this position (Rave In-Article) here. This comes handy if you want to have multiple forms on the same page.
 
-To have different forms on different pages, you should set a custom position for each of the forms and loading the positions their respective articles (pages).
+To have different forms on different pages, you should set a custom position for each of the forms and loading the positions in their respective articles (pages).
 
 ```
 {loadposition name_of_custom_postion}
